@@ -4,6 +4,11 @@ namespace Common
 {
     public static class LifetimeExtensions
     {
+        public static void With(this IDisposable disposable, Lifetime lifetime)
+        {
+            lifetime.AddAction(disposable.Dispose);
+        }
+        
         public static IDisposable AsDisposable(this Lifetime.Definition definition)
         {
             return new Disposable(definition.Terminate);
